@@ -35,6 +35,12 @@ def display_while(current, is_head, is_tail, result_lst):
         current = current.next
 
 
+def reversed_helper(current):
+    if current == None :
+        return []
+    return reversed_helper(current.next) + [current.item]
+
+
 class OrderedList:
 
     def __init__(self):
@@ -82,52 +88,67 @@ class OrderedList:
                 current.prev.next = temp
                 temp.prev = current.prev
             elif current.prev != None and current.next == None:
-                current.prev = None
+                current.prev.next = None
             return True
                 
 
-        """
-        current = self.head
-        if current == None:
-            return False
-        while current != None:
-            if current.item == item:
-                if current.prev == None and current.next == None:
-                    self.head = None
-                elif current.prev == None and current.next != None:
-                    current.next.prev = None
-                    self.head = current.next
-                elif current.prev != None and current.next == None:
-                    current.prev = None 
-                else:
-                    temp = current.next
-                    temp.prev = current.prev
-                    current.prev.next = temp
-                return True
-            elif current.next != None:
-                current = current.next
-            elif current.next == None:
-                return False
-       """
-
     def index(self, item):
-        pass
+        current = self.head
+        found = False
+        index = 0
+        while current != None and not found:
+            if current.item == item:
+                found = True
+            else:
+                current = current.next
+                index += 1
+        if not found:
+            return None
+        else:
+            return index
+        
 
 
     def pop(self, index):
-        pass
-
+        current = self.head
+        found = False
+        c_index = 0
+        while current != None and not found:
+            if c_index == index:
+                found = True
+            else:
+                current = current.next
+                c_index += 1
+        if not found:
+            raise IndexError
+        else:
+            temp = current.item
+            self.remove(current.item)
+            return temp
 
     def contains(self, item):
-        pass
+        current = self.head
+        found = False
+        while current != None and not found:
+            if current.item == item:
+                found = True
+            else:
+                current = current.next
+        return found
 
 
     def to_list(self):
-        pass
+        result = []
+        current = self.head
+        while current != None:
+            result.append(current.item)
+            current = current.next
+        return result
 
 
     def to_reversed_list(self):
-        pass
+        current = self.head
+        return reversed_helper(current)
 
 
     def display(self):
