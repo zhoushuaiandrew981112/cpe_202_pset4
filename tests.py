@@ -127,8 +127,9 @@ class Test_OrderedList(unittest.TestCase):
         
         o_lst = OrderedList()
         o_lst.add(0)
+        print(o_lst.display()) 
         o_lst.remove(0)
-         
+        print(o_lst.display()) 
         self.assertEqual(o_lst.head, None)
 
         o_lst.add(0)

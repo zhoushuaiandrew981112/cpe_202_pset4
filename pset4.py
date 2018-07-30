@@ -60,7 +60,36 @@ class OrderedList:
                     current.next = new_node 
                 current = current.next
             
-    def remove_while_helper(current, item):
+
+    def remove(self, item):
+        current = self.head
+        found = False
+        while current != None and not found:
+            if current.item == item:
+                found = True
+            else:
+                current = current.next
+        if not found:
+            return False
+        else:
+            if current.prev == None and current.next == None:
+                self.head = None
+            elif current.prev == None and current.next != None:
+                current.next.prev = None
+                self.head = current.next
+            elif current.prev != None and current.next != None:
+                temp = current.next
+                current.prev.next = temp
+                temp.prev = current.prev
+            elif current.prev != None and current.next == None:
+                current.prev = None
+            return True
+                
+
+        """
+        current = self.head
+        if current == None:
+            return False
         while current != None:
             if current.item == item:
                 if current.prev == None and current.next == None:
@@ -79,14 +108,7 @@ class OrderedList:
                 current = current.next
             elif current.next == None:
                 return False
-
-
-    def remove(self, item):
-        current = self.head
-        if current == None:
-            return False
-        return remove_while_helper(current, item)
-
+       """
 
     def index(self, item):
         pass
