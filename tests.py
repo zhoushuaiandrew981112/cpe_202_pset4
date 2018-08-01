@@ -117,6 +117,43 @@ class Test_OrderedList(unittest.TestCase):
                    "(1 2 None)]")
         self.assertEqual(o_lst.display(), exp_str)
 
+    def test_OrderedList_revove_helper(self):
+        o_lst = OrderedList()
+        found = False
+
+        act_val = o_lst.remove_helper(o_lst.head, found)
+        self.assertFalse(act_val)
+
+        found = True
+
+        o_lst.add(0)
+        act_val = o_lst.remove_helper(o_lst.head, found)
+        self.assertTrue(act_val)
+
+        o_lst.add(0)
+        o_lst.add(1)
+        current = o_lst.head
+        act_val = o_lst.remove_helper(o_lst.head, found)
+        self.assertTrue(act_val)
+
+
+        o_lst.add(0)
+        o_lst.add(1)
+        current = o_lst.head
+        current = current.next
+        act_val = o_lst.remove_helper(o_lst.head, found)
+        self.assertTrue(act_val)
+
+        o_lst.add(0)
+        o_lst.add(1)
+        o_lst.add(2)
+        current = o_lst.head
+        current = current.next
+        current = current.next
+        act_val = o_lst.remove_helper(o_lst.head, found)
+        self.assertTrue(act_val)
+
+
     def test_OrderedList_remove_None(self):
         
         o_lst = OrderedList()

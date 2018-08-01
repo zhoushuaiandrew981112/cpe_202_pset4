@@ -65,6 +65,24 @@ class OrderedList:
                     current.next.prev = new_node
                     current.next = new_node 
                 current = current.next
+
+
+    def remove_helper(self, current, found):
+        
+        if not found:
+            return False
+        else:
+            if current.prev == None and current.next == None:
+                self.head = None
+            elif current.prev == None and current.next != None:
+                current.next.prev = None
+                self.head = current.next
+            elif current.prev != None and current.next != None:
+                current.prev.next = current.next
+                current.next.prev = current.prev
+            elif current.prev != None and current.next == None:
+                current.prev.next = None
+            return True
             
 
     def remove(self, item):
@@ -75,22 +93,8 @@ class OrderedList:
                 found = True
             else:
                 current = current.next
-        if not found:
-            return False
-        else:
-            if current.prev == None and current.next == None:
-                self.head = None
-            elif current.prev == None and current.next != None:
-                current.next.prev = None
-                self.head = current.next
-            elif current.prev != None and current.next != None:
-                temp = current.next
-                current.prev.next = temp
-                temp.prev = current.prev
-            elif current.prev != None and current.next == None:
-                current.prev.next = None
-            return True
-                
+        return self.remove_helper(current, found)
+
 
     def index(self, item):
         current = self.head
